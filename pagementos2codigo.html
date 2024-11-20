@@ -29,38 +29,66 @@
         .inputnone{
             display:none;
         }
+        .btnDiv1{
+            display: flex; justify-content: space-between
+        }
      .btnDiv{
-     display:flex-inline;
+     margin:2px;
+     display: flex; justify-content: space-between;
          
      }
      .lbl-chave{
-         text-align:right;
-         color:gold;
+         text-align:center;
+         color:lime;
          font-weight:bold;
+         display:flex;
+         justify-content:center;
+         margin:0px;
+         
          
      }
      .baicouBtn{
-         display:flex;
+         display: flex; justify-content: space-between;
          text-align:center;
          
+         
      }
-     .btn-baixo{
-     width:40%;
+      .btn-baixo{
+     width:30%;
      text-align:center;
      height:30px;
-     display:flex;
+     
      background:skyblue;
      font-size:12px;
      color:black;
      border-radius:10px;
      font-weight:bold;
-     align-text:center;
-     flex-direction:rows;
-       float: right;
+     display: flex; justify-content: space-between;
+     
+     
+       
+     }
+     .btn-baixo2{
+     width:40%;
+     text-align:center;
+     height:30px;
+     margin-left:62px;
+     background:skyblue;
+     font-size:12px;
+     color:black;
+     border-radius:10px;
+     font-weight:bold;
+     display: flex; justify-content: space-between;
+     
+       
      }
      .btn-baixo:focus{
          background:lime;
-         font-size:12px;
+         font-size:10px;
+     }
+        .btn-baixo2:focus{
+         background:lime;
+         font-size:10px;
      }
    .parag-Valor{
        text-align:center;
@@ -84,17 +112,17 @@
        text-align:center;
        background:skyblue;
        margin:0;
-   top:0;
-   padding:0;
+       top:0;
+        padding:0;
    }
    .divSite{
-   margin:0;
-   top:0;
-   background:skyblue;
-   color:black;
-   font-weight:bold;
-   text-decorate:none;
-   padding:0;
+       margin:0;
+       top:0;
+       background:skyblue;
+       color:black;
+       font-weight:bold;
+       text-decorate:none;
+       padding:0;
        text-align:center;
        
    }
@@ -103,7 +131,7 @@
        font-size:10px;
    }
    .indetificad{
-   position :relative;
+       position :relative;
        text-align:center;
        font-size:14px;
    }
@@ -127,15 +155,35 @@
    .hidden {
        display: none;
    }
+.inputFile{
+    display:none;
+    
+    
+}
 
-
+.btnEnVioFile{
+    width:30%;
+     text-align:center;
+     height:30px;
+     
+     background:skyblue;
+     font-size:12px;
+     color:black;
+     border-radius:10px;
+     font-weight:bold;
+}
+.divFile{
+    
+    display: flex; justify-content: center;
+    mar
+}
     </style>
 </head>
 <body>
     
     <h2>Use o QR Code do Pix para pagar</h2>
 
-<p class="subtitulo">Abra o app em que vai fazer a transferência, escaneie a imagem ou cole o código do QR Code<p/>
+<p class="subtitulo">Abra o app em que vai fazer a transferência, escaneie a imagem ou cole o código do QR Code ou pix cola<p/>
 
 
 <div class="content-img">
@@ -149,21 +197,29 @@
    
    <p class="parag-Valor">R$ 4,00</p>
     
-  
+  <div class="btnDiv1">
    
-   <label class="lbl-chave"> Código do QR code<button id="meuBotao" class="btn-baixo" onclick="chamar()">Copiar QR Code</button></label>
+   <label for="meuBotao"class="lbl-chave"> Código do QR code</label><button id="meuBotao" class="btn-baixo" onclick="chamar()">Copiar QR Code</button>
+   </div>
    
     <div class="btnDiv">
-    
-    <br>
-   
     <!-- Botão para copiar o texto -->
-  <label class="lbl-chave">PixChave Aleatória  <button id="meuBotao2" class="btn-baixo" onclick="chamar2()">Copiar Aleatória</button>
-        </label></div>
+  <label for="meuBotao2"class="lbl-chave">PixChave Aleatória  </label>
+  <button id="meuBotao2" class="btn-baixo2" onclick="chamar2()">Copiar Aleatória</button>
+        </div>
   
   
   
-</div>
+<div class="divFile">
+    
+   <label class="lbl-chave" for="escoderInput">ENVIAR COMPROVANTE</label>
+   </div>
+   <input type="file" class="inputFile"id="escoderInput">
+   
+
+
+
+
 
 <p>Nome : Carlos dos Santos Reis</p>
 
@@ -176,7 +232,7 @@
 
    <p>APÓS O PAGAMENTO CLICK AQUI,</p>
    <div class="acessoCodigo">
-   <button id="acessarCodigoBtn" class="bbt hidden" onclick="aguarde()">Acessar Código</button>
+   <button id="btnContagem" class="bbt hidden" onclick="aguarde()">Acessar Código</button>
 </div>
  <p>AGUARDE PARA ACESSÁR O CÓDIGO</p>
    
@@ -184,77 +240,82 @@
     </div>
 </div>
    
-   
-      <script>
-   function redirecionarApos30Seg() {
-    // Abre outra página em uma nova guia após 30 segundos
-    setTimeout(function() {
-        window.open("comprar2codigo.html", "_blank");
-    }, 30000); // 30.000 milissegundos = 30 segundos
+   <script>
+        // Função para copiar o texto do QR Code
+        function copiarTexto1() {
+            const textoCopiado = document.getElementById("meuInputqr");
+            textoCopiado.select();
+            navigator.clipboard.writeText(textoCopiado.value);
+            alert("Código QR copiado com sucesso: " + textoCopiado.value);
+            mostrarBotaoAcesso();
+        }
+
+        // Função para copiar a chave aleatória
+        function copiarTexto() {
+            const textoCopiado = document.getElementById("meuInput");
+            textoCopiado.select();
+            navigator.clipboard.writeText(textoCopiado.value);
+            alert("Chave aleatória copiada com sucesso: " + textoCopiado.value);
+            mostrarBotaoAcesso();
+        }
+
+        // Função para alterar o texto dos botões
+        function alterarTexto(botao, texto) {
+            botao.innerHTML = texto;
+        }
+
+        // Funções para chamar as cópias e alterar os textos
+        function chamar() {
+            copiarTexto1();
+             alert("APOS O PAGAMENTO RETORNE A ESSA PAGINA"); alterarTexto(document.getElementById("meuBotao"), "COPIADO COM SUCESSO!");
+        }
+
+        function chamar2() {
+            copiarTexto();
+           alert("APOS O PAGAMENTO RETORNE A ESSA PAGINA"); alterarTexto(document.getElementById("meuBotao2"), "COPIADO COM SUCESSO!");
+        }
+
+        // Função para enviar o comprovante
+        function chamar3() {
+            alert("VERIFICANDO... \nAPÓS A VERIFICAÇÃO SERÁ LIBERADO O ACESSO \n\nAguarde Nessa Tela");
+        }
+
+        // Mostrar o botão "Acessar Código"
+        function mostrarBotaoAcesso() {
+            setTimeout(() => {
+                document.getElementById("btnContagem").classList.remove('hidden');
+            }, 10000);
+        }
+
+        // Contagem no botão "Acessar Código"
+        const botaoContagem = document.getElementById("btnContagem");
+        let intervalo;
+        let tempo = 0;
+
+        botaoContagem.addEventListener("click", () => {
+            if (intervalo) {
+                clearInterval(intervalo);
+                intervalo = null;
+                botaoContagem.textContent = "Iniciar";
+                return;
+            }
+
+            alert("Aguarde Nessa Tela");
+            botaoContagem.textContent = "Contagem: 0s";
+            tempo = 0;
+
+            intervalo = setInterval(() => {
+                tempo++;
+                botaoContagem.textContent = `Aguarde -  ${tempo}s`;
+
+             if (tempo >= 30) {
+    clearInterval(intervalo);
+    window.location.href = "comprar2codigo.html";
+    botaoContagem.textContent = "Redirecionando...";
 }
 
-   function copiarTexto() {
-       // Seleciona o elemento input
-       var textoCopiado = document.getElementById("meuInput");
-       
-       // Seleciona o texto
-       textoCopiado.select();
-       textoCopiado.setSelectionRange(0, 99999); // Para dispositivos móveis
-       
-       // Copia o texto para a área de transferência
-       navigator.clipboard.writeText(textoCopiado.value);
-       
-       // Exibe uma mensagem de confirmação
-       alert("Chave aleatória copiada com sucesso: " + textoCopiado.value);
-       
-       // Mostra o botão "Acessar Código" após 10 segundos
-       setTimeout(function() {
-           document.getElementById("acessarCodigoBtn").classList.remove('hidden');
-       }, 50000); // 10.000 milissegundos = 10 segundos
-   }
-
-   function copiarTexto1() {
-       // Seleciona o elemento input
-       var textoCopiado = document.getElementById("meuInputqr");
-       
-       // Seleciona o texto
-       textoCopiado.select();
-       textoCopiado.setSelectionRange(0, 99999); // Para dispositivos móveis
-       
-       // Copia o texto para a área de transferência
-       navigator.clipboard.writeText(textoCopiado.value);
-       
-       // Exibe uma mensagem de confirmação
-       alert("Código QR copiado com sucesso: " + textoCopiado.value);
-       
-       // Mostra o botão "Acessar Código" após 10 segundos
-       setTimeout(function() {
-           document.getElementById("acessarCodigoBtn").classList.remove('hidden');
-       }, 50000); // 10.000 milissegundos = 10 segundos
-   }
-
-   function alterarTexto() {
-        var botao = document.getElementById("meuBotao");
-        botao.innerHTML = " COPIADO COM SUCESSO!";
-    }
-    function alterarTexto2() {
-        var botao = document.getElementById("meuBotao2");
-        botao.innerHTML = " COPIADO COM SUCESSO!";
-    }
-
-   function chamar(){
-       copiarTexto1();
-       alterarTexto();
-   }
-   function chamar2(){
-       copiarTexto();
-       alterarTexto2();
-   }
-   function aguarde(){
-   redirecionarApos30Seg();
-       alert("Aguarde Nessa Tela");
-       
-   }
-</script>
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
